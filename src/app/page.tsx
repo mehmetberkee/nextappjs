@@ -40,7 +40,7 @@ export default function Home() {
 
   const image = { width: 1920, height: 970 };
   const target = { x: 1362, y: 150 };
-  const targetMobile = { x: 1170, y: 115 };
+  const targetMobile = { x: 1470, y: 115 };
   const targetInput = { x: 770, y: 760 };
   const targetInputMobile = { x: 860, y: 670 };
   const targetVideo = { x: 500, y: 200 };
@@ -182,9 +182,37 @@ export default function Home() {
     });
     const text = await res.text();
     console.log("text:" + text);
+
+    const startGeneration = await fetch("/api/startGeneration", {
+      method: "POST",
+      body: JSON.stringify({ audioUrl: text, character: character }),
+    });
+    const obj = await startGeneration.json();
+    const statusUrl = await obj.status_url;
+    while (true) {
+      const newRes = await fetch("/api/statusGeneration", {
+        method: "POST",
+        body: JSON.stringify({ status_url: statusUrl }),
+      });
+      const newResJson = await newRes.json();
+      const curStatus = newResJson.status;
+      if (curStatus === "not yet") {
+        console.log("not yet");
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+      } else {
+        console.log("succes:");
+        console.log(newResJson);
+        setVideoUrl(newResJson.output.output_video);
+        setVideoKey(Date.now());
+        setIsLoading(false);
+        break;
+      }
+    }
+    /*
     setIsLoading(false);
     setVideoUrl(text);
     setVideoKey(Date.now());
+    <s*/
   };
 
   const decrementCredit = async function () {

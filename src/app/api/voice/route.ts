@@ -175,6 +175,7 @@ whisper, one revelation at a time."
     `https://storage.googleapis.com/${bucketName}/${fileDestination}`
   );
 
+  /*
   const payload = {
     input_face:
       character === "AVA"
@@ -204,4 +205,7 @@ async function gooeyAPI(payload: GooeyPayload) {
 
   const result = await response.json();
   return result;
+  */
+  const result = `https://storage.googleapis.com/${bucketName}/${fileDestination}`;
+  return new Response(result);
 }

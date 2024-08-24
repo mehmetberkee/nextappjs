@@ -47,12 +47,12 @@ export const authOptions: AuthOptions = {
     EmailProvider({
       server: process.env.EMAIL_SERVER,
       from: process.env.EMAIL_FROM,
-      sendVerificationRequest({
+      async sendVerificationRequest({
         identifier: email,
         url,
         provider: { server, from },
       }) {
-        sendVerificationRequest({
+        await sendVerificationRequest({
           identifier: email,
           url,
           provider: { server, from },

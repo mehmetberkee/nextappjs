@@ -438,7 +438,11 @@ export default function Home() {
                     ? "calc(115/300 * 100%)"
                     : "calc(62/300 * 100%)"
                 } `,
-                left: "calc(102/200 * 100%)",
+                left: `${
+                  screenWidth > 768
+                    ? "calc(101/200 * 100%)"
+                    : "calc(98/200 * 100%)"
+                } `,
                 transform: "translate(-50%)",
               }}
             >

@@ -314,174 +314,179 @@ export default function Home() {
   };
 
   return (
-    <div className="relative bg-black h-screen w-full">
-      <button
-        className="absolute z-20 bg-transparent text-transparent top-0"
-        style={{
-          width: screenWidth >= 768 ? "calc(1/18 * 100%)" : "calc(2/18 * 100%)",
-          height:
-            screenWidth >= 768 ? "calc(1/18 * 100%)" : "calc(1/36 * 100%)",
-          top: `${
-            screenWidth >= 768 ? "calc(116/400 * 100%)" : "calc(73/400 * 100%)"
-          }`,
-          right: `${
-            screenWidth >= 768 ? "calc(102/400 * 100%)" : "calc(10/400 * 100%)"
-          }`,
-        }}
-        onClick={() => {
-          setCreditCount(creditCount + 10);
-          //addCredit();
-          //setCreditCount(creditCount + 1);
-          if (session) {
-            setShowBuyCredit(true);
-          } else {
-            setShowForm(true);
-          }
-        }}
-      >
-        token
-      </button>
-      <div className="relative w-full h-screen">
-        {!isLoading ? (
-          <form onSubmit={handleSubmit}>
-            <textarea
-              placeholder={`${session ? "ASK A QUESTION" : "ASK A QUESTION"}`}
-              value={inputText}
-              onChange={(e) => {
-                setInputText(e.target.value);
-              }}
-              onKeyDown={handleKeyDown}
-              style={{
-                height: `${
-                  screenWidth >= 768 ? "calc(1/9 * 100%)" : "calc(1/4*100%)"
-                } `,
-                top: `${pointerInputPosition.top}px`,
-                left: `${pointerInputPosition.left}px`,
-                //width: "calc(22/100 * 100%)",
-                width: `${inputWidth}px`,
-                fontSize: `${inputFontSize}`,
-              }}
-              className="absolute top-3/4 -translate-y-2/3 tracking-widest bg-transparent border-none outline-none focus:border-none focus:outline-none text-white z-30 resize-none overflow-hidden"
+    <div className="overflow-y-hidden">
+      <div className="relative bg-black md:w-full w-[calc((1080/1900)*100dvh)] h-[calc(100dvh)] overflow-y-hidden">
+        <button
+          className="absolute z-20 bg-transparent text-transparent top-0"
+          style={{
+            width:
+              screenWidth >= 768 ? "calc(1/18 * 100%)" : "calc(2/18 * 100%)",
+            height:
+              screenWidth >= 768 ? "calc(1/18 * 100%)" : "calc(1/36 * 100%)",
+            top: `${
+              screenWidth >= 768
+                ? "calc(116/400 * 100%)"
+                : "calc(93/400 * 100%)"
+            }`,
+            right: `${
+              screenWidth >= 768
+                ? "calc(102/400 * 100%)"
+                : "calc(10/400 * 100%)"
+            }`,
+          }}
+          onClick={() => {
+            setCreditCount(creditCount + 10);
+            //addCredit();
+            //setCreditCount(creditCount + 1);
+            if (session) {
+              setShowBuyCredit(true);
+            } else {
+              setShowForm(true);
+            }
+          }}
+        >
+          token
+        </button>
+        <div className="relative md:w-full w-[calc((1080/1920)*100dvh)] h-[calc(100dvh)] overflow-y-hidden">
+          {!isLoading ? (
+            <form onSubmit={handleSubmit}>
+              <textarea
+                placeholder={`${session ? "ASK A QUESTION" : "ASK A QUESTION"}`}
+                value={inputText}
+                onChange={(e) => {
+                  setInputText(e.target.value);
+                }}
+                onKeyDown={handleKeyDown}
+                style={{
+                  height: `${
+                    screenWidth >= 768 ? "calc(1/9 * 100%)" : "calc(1/4*100%)"
+                  } `,
+                  //width: "calc(22/100 * 100%)",
+                  width: `${inputWidth}px`,
+                  fontSize: `${inputFontSize}`,
+                }}
+                className="absolute md:top-[calc(24/30*100dvh)] top-[calc(199/300*100dvh)] md:left-[calc(25/30*100dvh)] left-[calc(5/30*100dvh)] -translate-y-2/3 tracking-widest bg-transparent border-none outline-none focus:border-none focus:outline-none text-white z-30 resize-none overflow-hidden"
+              />
+            </form>
+          ) : (
+            <LoadingType
+              character={character}
+              pointerInputPosition={pointerInputPosition}
+              screenWidth={screenWidth}
             />
-          </form>
-        ) : (
-          <LoadingType
-            character={character}
-            pointerInputPosition={pointerInputPosition}
-            screenWidth={screenWidth}
+          )}
+          <LazyLoadImage
+            className={`z-10 absolute top-0 left-0 h-full ${
+              screenWidth > 768 ? "w-full" : ""
+            } object-cover`}
+            src={
+              screenWidth > 768
+                ? `/FINAL_SPACESHIP.png`
+                : `/MOBILE_BACKGROUND.png`
+            }
+            alt="background"
+            style={{ objectFit: "cover" }}
+          />
+
+          {videoUrl && !videoURLs.includes(videoUrl) ? (
+            <div
+              className="z-0 absolute flex justify-center aspect-[16/9]"
+              style={{
+                top: `${
+                  screenWidth > 768
+                    ? "calc(105/800 * 100%)"
+                    : "calc(112/800 * 100%)"
+                } `,
+                height: `${
+                  screenWidth > 768
+                    ? "calc(115/300 * 100%)"
+                    : "calc(62/300 * 100%)"
+                } `,
+                left: "calc(101/200 * 100%)",
+                transform: "translate(-50%)",
+              }}
+            >
+              <video
+                ref={videoRef}
+                key={videoKey}
+                muted={videoMuted}
+                className={`h-full w-full `}
+                autoPlay
+                playsInline
+                loop={videoUrl === avaVideoUrl || videoUrl === kaiVideoUrl}
+                preload="none"
+                onEnded={handleVideoEnd}
+              >
+                <source src={videoUrl} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          ) : (
+            ""
+          )}
+          {videoUrl && videoURLs.includes(videoUrl) ? (
+            <div
+              className="z-0 absolute left-1/2 -translate-x-1/2 flex justify-center aspect-[16/9]"
+              style={{
+                top: `${
+                  screenWidth > 768
+                    ? "calc(102/800 * 100%)"
+                    : "calc(112/800 * 100%)"
+                } `,
+                height: `${
+                  screenWidth > 768
+                    ? "calc(115/300 * 100%)"
+                    : "calc(62/300 * 100%)"
+                } `,
+                left: "calc(102/200 * 100%)",
+                transform: "translate(-50%)",
+              }}
+            >
+              <video
+                ref={videoRef}
+                key={videoKey}
+                muted={videoMuted}
+                className={`h-full w-full`}
+                autoPlay
+                playsInline
+                loop={videoUrl === avaVideoUrl || videoUrl === kaiVideoUrl}
+                preload="none"
+                onEnded={handleVideoEnd}
+              >
+                <source src={videoUrl} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+        <div>
+          {fontSize ? (
+            <p
+              className="z-20 absolute flex justify-center mb-8 text-red-600 md:top-[calc(110/800*100dvh)] top-[calc(104/800*100dvh)] md:right-[calc(114/200*100dvh)] right-[calc(6/200*100dvh)]"
+              style={{
+                fontSize: fontSize,
+              }}
+            >
+              {creditCount > 9 ? creditCount : `0${creditCount}`}
+            </p>
+          ) : (
+            ""
+          )}
+        </div>
+        {showForm && (
+          <SignInForm showForm={showForm} setShowForm={setShowForm} />
+        )}
+        {showBuyCredit && (
+          <BuyCredit
+            showBuyCredit={showBuyCredit}
+            setShowBuyCredit={setShowBuyCredit}
+            creditCount={creditCount}
+            setCreditCount={setCreditCount}
           />
         )}
-        <LazyLoadImage
-          className={`z-10 absolute top-0 left-0 h-full ${
-            screenWidth > 768 ? "w-full" : ""
-          } object-cover`}
-          src={
-            screenWidth > 768
-              ? `/FINAL_SPACESHIP.png`
-              : `/SPACESHIP_MOBILE_BACKGROUND.png`
-          }
-          alt="background"
-          style={{ objectFit: "cover" }}
-        />
-
-        {videoUrl && !videoURLs.includes(videoUrl) ? (
-          <div
-            className="z-0 absolute flex justify-center aspect-[16/9]"
-            style={{
-              top: `${
-                screenWidth > 768
-                  ? "calc(105/800 * 100%)"
-                  : "calc(115/800 * 100%)"
-              } `,
-              height: `${
-                screenWidth > 768
-                  ? "calc(115/300 * 100%)"
-                  : "calc(55/300 * 100%)"
-              } `,
-              left: "calc(101/200 * 100%)",
-              transform: "translate(-50%)",
-            }}
-          >
-            <video
-              ref={videoRef}
-              key={videoKey}
-              muted={videoMuted}
-              className={`h-full w-full `}
-              autoPlay
-              playsInline
-              loop={videoUrl === avaVideoUrl || videoUrl === kaiVideoUrl}
-              preload="none"
-              onEnded={handleVideoEnd}
-            >
-              <source src={videoUrl} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        ) : (
-          ""
-        )}
-        {videoUrl && videoURLs.includes(videoUrl) ? (
-          <div
-            className="z-0 absolute left-1/2 -translate-x-1/2 flex justify-center aspect-[16/9]"
-            style={{
-              top: `${
-                screenWidth > 768
-                  ? "calc(102/800 * 100%)"
-                  : "calc(85/800 * 100%)"
-              } `,
-              height: `${
-                screenWidth > 768
-                  ? "calc(115/300 * 100%)"
-                  : "calc(55/300 * 100%)"
-              } `,
-              left: "calc(102/200 * 100%)",
-              transform: "translate(-50%)",
-            }}
-          >
-            <video
-              ref={videoRef}
-              key={videoKey}
-              muted={videoMuted}
-              className={`h-full w-full`}
-              autoPlay
-              playsInline
-              loop={videoUrl === avaVideoUrl || videoUrl === kaiVideoUrl}
-              preload="none"
-              onEnded={handleVideoEnd}
-            >
-              <source src={videoUrl} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        ) : (
-          ""
-        )}
       </div>
-      <div>
-        {fontSize ? (
-          <p
-            className="z-20 absolute flex justify-center mb-8 text-red-600"
-            style={{
-              top: `${pointerCreditPosition.top}px`,
-              left: `${pointerCreditPosition.left}px`,
-              fontSize: fontSize,
-            }}
-          >
-            {creditCount > 9 ? creditCount : `0${creditCount}`}
-          </p>
-        ) : (
-          ""
-        )}
-      </div>
-      {showForm && <SignInForm showForm={showForm} setShowForm={setShowForm} />}
-      {showBuyCredit && (
-        <BuyCredit
-          showBuyCredit={showBuyCredit}
-          setShowBuyCredit={setShowBuyCredit}
-          creditCount={creditCount}
-          setCreditCount={setCreditCount}
-        />
-      )}
     </div>
   );
 }

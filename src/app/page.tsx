@@ -353,6 +353,11 @@ export default function Home() {
               <textarea
                 placeholder={`${session ? "ASK A QUESTION" : "ASK A QUESTION"}`}
                 value={inputText}
+                onFocus={() => {
+                  if (!session) {
+                    setShowForm(true);
+                  }
+                }}
                 onChange={(e) => {
                   setInputText(e.target.value);
                 }}
@@ -453,9 +458,8 @@ export default function Home() {
                 className={`h-full w-full`}
                 autoPlay
                 playsInline
-                loop={videoUrl === avaVideoUrl || videoUrl === kaiVideoUrl}
+                loop={true}
                 preload="none"
-                onEnded={handleVideoEnd}
               >
                 <source src={videoUrl} type="video/mp4" />
                 Your browser does not support the video tag.

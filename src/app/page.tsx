@@ -314,25 +314,15 @@ export default function Home() {
   };
 
   return (
-    <div className="overflow-y-hidden">
-      <div className="relative bg-black md:w-full w-[calc((1080/1900)*100dvh)] h-[calc(100dvh)] overflow-y-hidden">
+    <div className="overflow-y-hidden overflow-x-auto">
+      <div className="relative bg-black xxl:w-full xl:w-[calc((1970/970)*100dvh)] md:w-[calc((1324/970)*100dvh)] h-[calc(100dvh)] overflow-y-hidden">
         <button
-          className="absolute z-20 bg-transparent text-transparent top-0"
+          className="absolute z-20 bg-transparent text-transparent xl:top-[calc(116/400*100%)] md:top-[calc(116/400*100%)] top-[calc(93/400*100%)] xl:right-[calc(102/400*100%)] md:right-[calc(65/400*100%)] right-[calc(10/400*100%)]"
           style={{
             width:
               screenWidth >= 768 ? "calc(1/18 * 100%)" : "calc(2/18 * 100%)",
             height:
               screenWidth >= 768 ? "calc(1/18 * 100%)" : "calc(1/36 * 100%)",
-            top: `${
-              screenWidth >= 768
-                ? "calc(116/400 * 100%)"
-                : "calc(93/400 * 100%)"
-            }`,
-            right: `${
-              screenWidth >= 768
-                ? "calc(102/400 * 100%)"
-                : "calc(10/400 * 100%)"
-            }`,
           }}
           onClick={() => {
             setCreditCount(creditCount + 10);
@@ -347,7 +337,7 @@ export default function Home() {
         >
           token
         </button>
-        <div className="relative md:w-full w-[calc((1080/1920)*100dvh)] h-[calc(100dvh)] overflow-y-hidden">
+        <div className="relative xxl:w-full xl:w-[calc((1970/970)*100dvh)] md:w-[calc((1324/970)*100dvh)] w-[calc((1080/1920)*100dvh)] h-[calc(100dvh)] overflow-y-hidden">
           {!isLoading ? (
             <form onSubmit={handleSubmit}>
               <textarea
@@ -370,7 +360,7 @@ export default function Home() {
                   width: `${inputWidth}px`,
                   fontSize: `${inputFontSize}`,
                 }}
-                className="absolute md:top-[calc(24/30*100dvh)] top-[calc(199/300*100dvh)] md:left-[calc(25/30*100dvh)] left-[calc(5/30*100dvh)] -translate-y-2/3 tracking-widest bg-transparent border-none outline-none focus:border-none focus:outline-none text-white z-30 resize-none overflow-hidden"
+                className="absolute md:top-[calc(24/30*100dvh)] top-[calc(199/300*100dvh)] md:left-[calc(15/30*100dvh)] xl:left-[calc(25/30*100dvh)] left-[calc(5/30*100dvh)] -translate-y-2/3 tracking-widest bg-transparent border-none outline-none focus:border-none focus:outline-none text-white z-30 resize-none overflow-y-hidden"
               />
             </form>
           ) : (
@@ -385,9 +375,11 @@ export default function Home() {
               screenWidth > 768 ? "w-full" : ""
             } object-cover`}
             src={
-              screenWidth > 768
+              screenWidth > 1025
                 ? `/FINAL_SPACESHIP.png`
-                : `/MOBILE_BACKGROUND.png`
+                : screenWidth > 768
+                ? `/LAPTOP.png`
+                : "/MOBILE_BACKGROUND.png"
             }
             alt="background"
             style={{ objectFit: "cover" }}
@@ -472,7 +464,7 @@ export default function Home() {
         <div>
           {fontSize ? (
             <p
-              className="z-20 absolute flex justify-center mb-8 text-red-600 md:top-[calc(110/800*100dvh)] top-[calc(104/800*100dvh)] md:right-[calc(114/200*100dvh)] right-[calc(6/200*100dvh)]"
+              className="z-20 absolute flex justify-center mb-8 text-red-600 xl:top-[calc(110/800*100dvh)] md:top-[calc(120/800*100dvh)] top-[calc(104/800*100dvh)] md:left-[calc(160/200*100%)] xxl:left-[calc(1417/2000*100%)] left-[calc(103/200*100dvh)]"
               style={{
                 fontSize: fontSize,
               }}

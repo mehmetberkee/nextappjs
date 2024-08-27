@@ -68,7 +68,7 @@ function LoadingType({
         width: `${inputWidth}px`,
         fontSize: fontSize,
       }}
-      className="absolute md:top-[calc(24/30*100dvh)] top-[calc(199/300*100dvh)] md:left-[calc(25/30*100dvh)] left-[calc(5/30*100dvh)] -translate-y-2/3 tracking-widest text-xl bg-transparent border-none outline-none focus:border-none focus:outline-none text-white z-30 resize-none overflow-hidden"
+      className="absolute md:top-[calc(24/30*100dvh)] top-[calc(199/300*100dvh)] md:left-[calc(15/30*100dvh)] xl:left-[calc(25/30*100dvh)] left-[calc(5/30*100dvh)] -translate-y-2/3 tracking-widest text-xl bg-transparent border-none outline-none focus:border-none focus:outline-none text-white z-30 resize-none overflow-hidden"
     >
       {fontSize ? (
         <TypeAnimation

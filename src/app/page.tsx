@@ -406,12 +406,12 @@ export default function Home() {
               <video
                 ref={videoRef}
                 key={videoKey}
-                muted={videoMuted}
-                className={`h-full w-full `}
+                muted={true}
+                className={`h-full w-full`}
                 autoPlay
                 playsInline
                 loop={videoUrl === avaVideoUrl || videoUrl === kaiVideoUrl}
-                preload="none"
+                preload="auto"
                 onEnded={handleVideoEnd}
               >
                 <source src={videoUrl} type="video/mp4" />

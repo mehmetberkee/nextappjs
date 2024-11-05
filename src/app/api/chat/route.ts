@@ -119,8 +119,8 @@ whisper, one revelation at a time."
   const payload = {
     input_face:
       character === "AVA"
-        ? "https://storage.googleapis.com/childrenstory-bucket/AVA_BLINK.mp4"
-        : "https://storage.googleapis.com/childrenstory-bucket/KAI_BLINKS.mp4",
+        ? "https://storage.googleapis.com/raygunastrology/AVA_BLINK.mp4"
+        : "https://storage.googleapis.com/raygunastrology/KAI_BLINKS.mp4",
     text_prompt: content,
     tts_provider: "GOOGLE_TTS",
     google_voice_name:

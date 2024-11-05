@@ -17,7 +17,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const bucketName = "raygunbucket";
+const bucketName = "raygunastrology";
 const storage = new Storage({
   projectId: process.env.PROJECT_ID,
   credentials: JSON.parse(

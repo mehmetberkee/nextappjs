@@ -16,8 +16,8 @@ export async function POST(req: any) {
   const payload = {
     input_face:
       character === "AVA"
-        ? "https://storage.googleapis.com/raygunbucket/AVA_BLINK.mp4"
-        : "https://storage.googleapis.com/raygunbucket/KAI_BLINKS.mp4",
+        ? "https://storage.googleapis.com/raygunastrology/AVA_BLINK.mp4"
+        : "https://storage.googleapis.com/raygunastrology/KAI_BLINKS.mp4",
     input_audio: audioUrl,
     selected_model: "Wav2Lip",
   };

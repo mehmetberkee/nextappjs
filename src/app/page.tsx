@@ -34,9 +34,9 @@ export default function Home() {
   //https://storage.googleapis.com/childrenstory-bucket/KAI30_small.mp4
   //"https://storage.googleapis.com/childrenstory-bucket/AVA30_GLITCH2.mp4"
   const kaiVideoUrl =
-    "https://storage.googleapis.com/raygunbucket/KAI_BLINKS.mp4";
+    "https://storage.googleapis.com/raygunastrology/KAI_BLINKS.mp4";
   const avaVideoUrl =
-    "https://storage.googleapis.com/raygunbucket/AVA_BLINK.mp4";
+    "https://storage.googleapis.com/raygunastrology/AVA_BLINK.mp4";
 
   const image = { width: 1920, height: 970 };
   const target = { x: 1362, y: 150 };

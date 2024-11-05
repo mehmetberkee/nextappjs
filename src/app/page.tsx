@@ -497,7 +497,7 @@ export default function Home() {
               <video
                 ref={videoRef}
                 key={videoKey}
-                muted={true}
+                muted={false}
                 className={`h-full w-full`}
                 autoPlay
                 playsInline

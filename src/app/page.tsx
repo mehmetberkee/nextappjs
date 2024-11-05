@@ -12,7 +12,71 @@ import PaymentComponent from "@/components/PaymentComponent";
 
 export default function Home() {
   const { data: session } = useSession();
+  const containerRef = useRef<any>(null);
+  const [pointStyle, setPointStyle] = useState({ top: "0%", left: "0%" });
+  const [pointInputStyle, setPointInputStyle] = useState({
+    top: "0%",
+    left: "0%",
+  });
 
+  // Resmin orijinal boyutları
+  const originalImageWidth = 1920;
+  const originalImageHeight = 970;
+
+  // Noktanın orijinal resim üzerindeki koordinatları
+  const pointX = 1373; // X koordinatı (piksel cinsinden)
+  const pointY = 175; // Y koordinatı (piksel cinsinden)
+
+  const pointInputX = 975;
+  const pointInputY = 740;
+  useEffect(() => {
+    const handleResize = () => {
+      if (containerRef.current) {
+        const containerWidth = containerRef.current.clientWidth;
+        const containerHeight = containerRef.current.clientHeight;
+
+        // Ölçek faktörünü hesapla (objectFit: 'cover' için)
+        const scale = Math.max(
+          containerWidth / originalImageWidth,
+          containerHeight / originalImageHeight
+        );
+
+        // Ölçeklenmiş resmin boyutları
+        const displayedImageWidth = originalImageWidth * scale;
+        const displayedImageHeight = originalImageHeight * scale;
+
+        // Kırpılan kısımların offset değerleri
+        const offsetX = (displayedImageWidth - containerWidth) / 2;
+        const offsetY = (displayedImageHeight - containerHeight) / 2;
+
+        // Noktanın kapsayıcı içindeki pozisyonu
+        const pointXInContainer = pointX * scale - offsetX;
+        const pointYInContainer = pointY * scale - offsetY;
+
+        const pointInputXInContainer = pointInputX * scale - offsetX;
+        const pointInputYInContainer = pointInputY * scale - offsetY;
+        // Yüzde değerlerini hesapla
+        const newLeft = (pointXInContainer / containerWidth) * 100;
+        const newTop = (pointYInContainer / containerHeight) * 100;
+        const newInputLeft = (pointInputXInContainer / containerWidth) * 100;
+        const newInputTop = (pointInputYInContainer / containerHeight) * 100;
+
+        setPointStyle({
+          top: `${newTop}%`,
+          left: `${newLeft}%`,
+        });
+
+        setPointInputStyle({
+          top: `${newInputTop}%`,
+          left: `${newInputLeft}%`,
+        });
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const [screenWidth, setScreenWidth] = useState(0);
   const [inputText, setInputText] = useState("");
   const [videoMuted, setVideoMuted] = useState(true);
@@ -356,11 +420,22 @@ export default function Home() {
                   height: `${
                     screenWidth >= 768 ? "calc(1/9 * 100%)" : "calc(1/4*100%)"
                   } `,
+                  top: `${
+                    screenWidth < 768
+                      ? "calc(189 / 300 * 100dvh)"
+                      : pointInputStyle.top
+                  }`,
+                  left: `${
+                    screenWidth < 768
+                      ? "calc(8/30*100dvh)"
+                      : pointInputStyle.left
+                  }`,
+                  transform: "translate(-50%, -50%)",
                   //width: "calc(22/100 * 100%)",
                   width: `${inputWidth}px`,
                   fontSize: `${inputFontSize}`,
                 }}
-                className="absolute md:top-[calc(24/30*100dvh)] top-[calc(199/300*100dvh)] md:left-[calc(15/30*100dvh)] xl:left-[calc(25/30*100dvh)] left-[calc(5/30*100dvh)] -translate-y-2/3 tracking-widest bg-transparent border-none outline-none focus:border-none focus:outline-none text-white z-30 resize-none overflow-y-hidden"
+                className="absolute -translate-y-2/3 tracking-widest bg-transparent border-none outline-none focus:border-none focus:outline-none text-white z-30 resize-none overflow-y-hidden"
               />
             </form>
           ) : (
@@ -370,17 +445,39 @@ export default function Home() {
               screenWidth={screenWidth}
             />
           )}
+          <div
+            ref={containerRef}
+            className="relative z-20 sm:block hidden h-screen overflow-hidden"
+          >
+            <LazyLoadImage
+              className="z-20 w-full h-full object-cover"
+              src="/FINAL_SPACESHIP.png"
+              alt="Büyük Resim"
+            />
+
+            <div
+              className="z-20 absolute text-red-600"
+              style={{
+                top: pointStyle.top,
+                left: pointStyle.left,
+                transform: "translate(-50%, -50%)",
+              }}
+            >
+              {fontSize ? (
+                <p
+                  className="text-xl sm:flex hidden"
+                  style={{ fontSize: fontSize }}
+                >
+                  {creditCount > 9 ? creditCount : `0${creditCount}`}
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
           <LazyLoadImage
-            className={`z-10 absolute top-0 left-0 h-full ${
-              screenWidth > 768 ? "w-full" : ""
-            } object-cover`}
-            src={
-              screenWidth > 1025
-                ? `/FINAL_SPACESHIP.png`
-                : screenWidth > 768
-                ? `/LAPTOP.png`
-                : "/MOBILE_BACKGROUND.png"
-            }
+            className={`z-10 absolute top-0 left-0 h-full sm:hidden flex object-cover`}
+            src={"/MOBILE_BACKGROUND.png"}
             alt="background"
             style={{ objectFit: "cover" }}
           />
@@ -464,7 +561,7 @@ export default function Home() {
         <div>
           {fontSize ? (
             <p
-              className="z-20 absolute flex justify-center mb-8 text-red-600 xl:top-[calc(110/800*100dvh)] md:top-[calc(120/800*100dvh)] top-[calc(104/800*100dvh)] md:left-[calc(160/200*100%)] xxl:left-[calc(1417/2000*100%)] left-[calc(103/200*100dvh)]"
+              className="z-20 md:hidden absolute flex justify-center mb-8 text-red-600 xl:top-[calc(110/800*100dvh)] md:top-[calc(120/800*100dvh)] top-[calc(104/800*100dvh)] md:left-[calc(160/200*100%)] xxl:left-[calc(1417/2000*100%)] left-[calc(103/200*100dvh)]"
               style={{
                 fontSize: fontSize,
               }}

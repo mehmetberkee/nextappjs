@@ -18,6 +18,10 @@ export default function Home() {
     top: "0%",
     left: "0%",
   });
+  const [pointBtnStyle, setPointBtnStyle] = useState({
+    top: "0%",
+    left: "0%",
+  });
 
   // Resmin orijinal boyutları
   const originalImageWidth = 1920;
@@ -26,6 +30,9 @@ export default function Home() {
   // Noktanın orijinal resim üzerindeki koordinatları
   const pointX = 1373; // X koordinatı (piksel cinsinden)
   const pointY = 175; // Y koordinatı (piksel cinsinden)
+
+  const pointBtnX = 1373;
+  const pointBtnY = 325;
 
   const pointInputX = 975;
   const pointInputY = 740;
@@ -55,12 +62,16 @@ export default function Home() {
 
         const pointInputXInContainer = pointInputX * scale - offsetX;
         const pointInputYInContainer = pointInputY * scale - offsetY;
+
+        const pointBtnXInContainer = pointBtnX * scale - offsetX;
+        const pointBtnYInContainer = pointBtnY * scale - offsetY;
         // Yüzde değerlerini hesapla
         const newLeft = (pointXInContainer / containerWidth) * 100;
         const newTop = (pointYInContainer / containerHeight) * 100;
         const newInputLeft = (pointInputXInContainer / containerWidth) * 100;
         const newInputTop = (pointInputYInContainer / containerHeight) * 100;
-
+        const newBtnLeft = (pointBtnXInContainer / containerWidth) * 100;
+        const newBtnTop = (pointBtnYInContainer / containerHeight) * 100;
         setPointStyle({
           top: `${newTop}%`,
           left: `${newLeft}%`,
@@ -69,6 +80,10 @@ export default function Home() {
         setPointInputStyle({
           top: `${newInputTop}%`,
           left: `${newInputLeft}%`,
+        });
+        setPointBtnStyle({
+          top: `${newBtnTop}%`,
+          left: `${newBtnLeft}%`,
         });
       }
     };
@@ -380,27 +395,6 @@ export default function Home() {
   return (
     <div className="overflow-y-hidden overflow-x-auto">
       <div className="relative bg-black xxl:w-full xl:w-[calc((1970/970)*100dvh)] md:w-[calc((1324/970)*100dvh)] h-[calc(100dvh)] overflow-y-hidden">
-        <button
-          className="absolute z-20 bg-transparent text-transparent xl:top-[calc(116/400*100%)] md:top-[calc(116/400*100%)] top-[calc(93/400*100%)] xl:right-[calc(102/400*100%)] md:right-[calc(65/400*100%)] right-[calc(10/400*100%)]"
-          style={{
-            width:
-              screenWidth >= 768 ? "calc(1/18 * 100%)" : "calc(2/18 * 100%)",
-            height:
-              screenWidth >= 768 ? "calc(1/18 * 100%)" : "calc(1/36 * 100%)",
-          }}
-          onClick={() => {
-            setCreditCount(creditCount + 10);
-            //addCredit();
-            //setCreditCount(creditCount + 1);
-            if (session) {
-              setShowBuyCredit(true);
-            } else {
-              setShowForm(true);
-            }
-          }}
-        >
-          token
-        </button>
         <div className="relative xxl:w-full xl:w-[calc((1970/970)*100dvh)] md:w-[calc((1324/970)*100dvh)] w-[calc((1080/1920)*100dvh)] h-[calc(100dvh)] overflow-y-hidden">
           {!isLoading ? (
             <form onSubmit={handleSubmit}>
@@ -568,6 +562,45 @@ export default function Home() {
             >
               {creditCount > 9 ? creditCount : `0${creditCount}`}
             </p>
+          ) : (
+            ""
+          )}
+          {fontSize ? (
+            <button
+              className="absolute z-50 bg-black bg-transparent text-transparent"
+              style={{
+                top:
+                  screenWidth >= 768
+                    ? pointBtnStyle.top
+                    : `calc(194/800*100dvh)`,
+                left:
+                  screenWidth >= 768
+                    ? pointBtnStyle.left
+                    : `calc(106/200*100dvh)`,
+                transform: "translate(-50%, -50%)",
+
+                width:
+                  screenWidth >= 768
+                    ? "calc(1/18 * 100%)"
+                    : "calc(2/18 * 100%)",
+                height:
+                  screenWidth >= 768
+                    ? "calc(1/18 * 100%)"
+                    : "calc(1/36 * 100%)",
+              }}
+              onClick={() => {
+                setCreditCount(creditCount + 10);
+                //addCredit();
+                //setCreditCount(creditCount + 1);
+                if (session) {
+                  setShowBuyCredit(true);
+                } else {
+                  setShowForm(true);
+                }
+              }}
+            >
+              token
+            </button>
           ) : (
             ""
           )}

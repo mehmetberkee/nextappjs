@@ -260,7 +260,6 @@ export default function Home() {
       body: JSON.stringify({ inputText: inputText, character: character }),
     });
     const text = await res.text();
-    console.log("text:" + text);
 
     const startGeneration = await fetch("/api/startGeneration", {
       method: "POST",

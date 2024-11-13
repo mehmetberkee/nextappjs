@@ -63,7 +63,15 @@ function LoadingType({
         height: `${
           screenWidth >= 768 ? "calc(1/9 * 100%)" : "calc(1/4*100%)"
         } `,
-
+        top: `${
+          screenWidth < 768
+            ? "calc(189 / 300 * 100dvh)"
+            : pointerInputPosition.top
+        }`,
+        left: `${
+          screenWidth < 768 ? "calc(8/30*100dvh)" : pointerInputPosition.left
+        }`,
+        transform: "translate(-50%, -50%)",
         //width: "calc(22/100 * 100%)",
         width: `${inputWidth}px`,
         fontSize: fontSize,

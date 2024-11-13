@@ -434,7 +434,7 @@ export default function Home() {
           ) : (
             <LoadingType
               character={character}
-              pointerInputPosition={pointerInputPosition}
+              pointerInputPosition={pointInputStyle}
               screenWidth={screenWidth}
             />
           )}

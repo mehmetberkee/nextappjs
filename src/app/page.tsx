@@ -588,7 +588,6 @@ export default function Home() {
                     : "calc(1/36 * 100%)",
               }}
               onClick={() => {
-                setCreditCount(creditCount + 10);
                 //addCredit();
                 //setCreditCount(creditCount + 1);
                 if (session) {

@@ -444,8 +444,8 @@ export default function Home() {
           >
             <LazyLoadImage
               className="z-20 w-full h-full object-cover"
-              src="/FINAL_SPACESHIP.png"
-              alt="Büyük Resim"
+              src="/FINAL_SPACESHIP_FIX.png"
+              alt="SPACESHIP"
             />
 
             <div
